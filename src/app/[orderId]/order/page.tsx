@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/Button';
 import { RadioButton } from '@/components/RadioButton';
+import { Separator } from '@/components/Separator';
 
 import { Item } from './components/Item';
 
@@ -34,7 +35,8 @@ export default function Order() {
             </li>
           </ul>
         </section>
-        <div className="bg-gray-600 w-full h-px" />
+        <Separator />
+
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-medium">Sanduíches</h2>
           <ul className="flex flex-col gap-2">
@@ -46,7 +48,7 @@ export default function Order() {
             </li>
           </ul>
         </section>
-        <div className="bg-gray-600 w-full h-px" />
+        <Separator />
 
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-medium">Dividir refri?</h2>
@@ -55,7 +57,7 @@ export default function Order() {
             <RadioButton label="Não" name="split" />
           </div>
         </section>
-        <div className="bg-gray-600 w-full h-px" />
+        <Separator />
 
         <section className="flex flex-col gap-6">
           <div className="flex justify-between items-center text-lg">
