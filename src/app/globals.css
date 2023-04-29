@@ -27,8 +27,21 @@
     @apply placeholder:text-gray-500;
   }
 
-
   button {
     @apply outline-offset-2;
   }
+
+  *::-webkit-scrollbar {
+    @apply w-3;
+  }
+  
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 hover:bg-gray-750;
+    @apply rounded-full;
+  }
+  
 }
