@@ -38,6 +38,12 @@ module.exports = {
 
       borderRadius: {
         '4xl': '2rem'
+      },
+
+      maxHeight: {
+        128: '32rem',
+        192: '48rem',
+        256: '64rem'
       }
     }
   },
