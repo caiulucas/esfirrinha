@@ -17,8 +17,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={inter.className}>
         <div
-          className="md:container flex items-center justify-center overflow-auto
-          h-full md:h-fit p-4 md:p-20 md:w-fit md:rounded-4xl bg-gray-800"
+          className="md:container flex items-center md:items-start justify-center
+          md:justify-normal overflow-y-auto p-4 md:p-20 md:w-fit md:rounded-4xl
+          h-full md:h-fit md:max-h-192 bg-gray-800"
         >
           {children}
         </div>
