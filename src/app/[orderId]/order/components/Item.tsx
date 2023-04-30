@@ -14,7 +14,7 @@ export function Item({ name, price }: ItemProps) {
       <div>
         <p className="text-lg">{name}</p>
         <span>
-          <strong className="text-yellow-500">{currency[0]}</strong>
+          <strong className="text-yellow-500">{currency[0]}</strong>{' '}
           {currency[1]}
         </span>
       </div>
