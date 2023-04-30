@@ -5,7 +5,6 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { Button } from '@/components/Button';
-import { RadioButton } from '@/components/RadioButton';
 import { Separator } from '@/components/Separator';
 import { formatCurrency } from '@/utils/currency';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -141,14 +140,14 @@ export default function Order() {
             <Separator />
           </section>
         ))}
-        <section className="flex flex-col gap-6">
+        {/* <section className="flex flex-col gap-6">
           <h2 className="text-xl font-medium">Dividir refri?</h2>
           <div className="flex gap-6">
             <RadioButton label="Sim" name="split" />
             <RadioButton label="Não" name="split" />
           </div>
         </section>
-        <Separator />
+        <Separator /> */}
 
         <section className="flex flex-col gap-6">
           <div className="flex justify-between items-center text-lg">
