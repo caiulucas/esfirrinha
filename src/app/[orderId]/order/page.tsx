@@ -1,46 +1,42 @@
 'use client';
 import { use } from 'react';
 
-import { Product } from '@/app/api/products/route';
 import { Button } from '@/components/Button';
 import { RadioButton } from '@/components/RadioButton';
 import { Separator } from '@/components/Separator';
+import { Category as PrismaCategory, Product } from '@prisma/client';
 
 import { Item } from './components/Item';
 
-async function getProducts() {
-  const res = await fetch('/api/products');
+interface Category extends PrismaCategory {
+  products: Product[];
+}
 
-  const data: Product[] = await res.json();
+async function getCategories(): Promise<Category[]> {
+  const res = await fetch('/api/categories');
+
+  const data = await res.json();
   return data;
 }
 
-const productsPromise = getProducts();
+const categoriesPromise = getCategories();
 
 export default function Order() {
-  const products = use(productsPromise);
-  const sfihas = products.filter(
-    (product) => product.data.category === 'Esfirra'
-  );
-  const sandwiches = products.filter(
-    (product) => product.data.category === 'Sanduíche'
-  );
-
-  console.log(products);
+  const categories = use(categoriesPromise);
 
   return (
     <main className="flex flex-col gap-6 w-96">
       <h1 className="text-3xl font-medium text-left">Faça seu pedido</h1>
 
       <form className="flex flex-col gap-6 w-full">
-        {!!sfihas.length && (
+        {categories.map((category) => (
           <>
-            <section className="flex flex-col gap-6">
-              <h2 className="text-xl font-medium">Esfirras</h2>
+            <section key={category.id} className="flex flex-col gap-6">
+              <h2 className="text-xl font-medium">{category.name}</h2>
               <ul className="flex flex-col gap-2">
-                {sfihas.map((sfiha) => (
-                  <li key={sfiha.data.name}>
-                    <Item name={sfiha.data.name} price={sfiha.data.price} />
+                {category.products.map((product) => (
+                  <li key={product.name}>
+                    <Item name={product.name} price={1} />
                   </li>
                 ))}
               </ul>
@@ -48,25 +44,7 @@ export default function Order() {
 
             <Separator />
           </>
-        )}
-
-        {!!sandwiches.length && (
-          <>
-            <section className="flex flex-col gap-6">
-              <h2 className="text-xl font-medium">Sanduíches</h2>
-              <ul className="flex flex-col gap-2">
-                <li>
-                  <Item name="Mata fome" price={13} />
-                </li>
-                <li>
-                  <Item name="Monstruoso" price={18} />
-                </li>
-              </ul>
-            </section>
-            <Separator />
-          </>
-        )}
-
+        ))}
         <section className="flex flex-col gap-6">
           <h2 className="text-xl font-medium">Dividir refri?</h2>
           <div className="flex gap-6">
