@@ -1,16 +1,38 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 
-export function Controller() {
+interface ControllerProps {
+  onChange?: (value: number) => void;
+}
+
+export function Controller({ onChange }: ControllerProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [quantity, setQuantity] = useState(0);
 
-  function handleMinus() {
-    setQuantity((oldState) => oldState - 1);
-  }
+  const handleMinus = useCallback(() => {
+    const newValue = Math.max(0, quantity - 1);
+    onChange?.(newValue);
+    setQuantity(newValue);
+  }, [onChange, quantity]);
 
-  function handlePlus() {
-    setQuantity((oldState) => oldState + 1);
-  }
+  const handlePlus = useCallback(() => {
+    const newValue = quantity + 1;
+    onChange?.(newValue);
+    setQuantity(newValue);
+  }, [onChange, quantity]);
+
+  const handleChange = useCallback(
+    (value: number) => {
+      if (value < 0 || Number.isNaN(value)) {
+        onChange?.(0);
+        return setQuantity(0);
+      }
+
+      onChange?.(value);
+      setQuantity(value);
+    },
+    [onChange]
+  );
 
   return (
     <div className="flex items-center gap-2">
@@ -24,10 +46,12 @@ export function Controller() {
       </button>
       <input
         type="number"
+        ref={inputRef}
         placeholder="0"
         value={quantity}
+        min={0}
         onChange={({ currentTarget }) =>
-          setQuantity(currentTarget.valueAsNumber)
+          handleChange(currentTarget.valueAsNumber)
         }
         className="w-16 text-center"
       />
