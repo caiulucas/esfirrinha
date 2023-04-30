@@ -4,9 +4,10 @@ import { formatCurrency } from '@/utils/currency';
 interface ItemProps {
   name: string;
   price: number;
+  onChange?: (value: number) => void;
 }
 
-export function Item({ name, price }: ItemProps) {
+export function Item({ name, price, onChange }: ItemProps) {
   const currency = formatCurrency(price).split('\u00A0');
 
   return (
@@ -18,7 +19,7 @@ export function Item({ name, price }: ItemProps) {
           {currency[1]}
         </span>
       </div>
-      <Controller />
+      <Controller onChange={onChange} />
     </div>
   );
 }
