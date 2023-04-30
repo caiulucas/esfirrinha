@@ -8,8 +8,14 @@ import { Button } from '@/components/Button';
 export default function Share() {
   const { shortId } = useParams();
 
+  const shareUrl = new URL('https://wa.me');
+  shareUrl.searchParams.set(
+    'text',
+    `Faça um pedido coletivo no Esfirrinha usando o link: http://localhost:3000/${shortId}`
+  );
+
   return (
-    <main className="flex flex-col gap-36">
+    <main className="flex flex-col items-center justify-center gap-36">
       <div className="flex flex-col gap-6">
         <h1 className="text-3xl font-medium text-left">Compartilhar</h1>
         <p className="text-lg">
@@ -24,10 +30,11 @@ export default function Share() {
         </p>
 
         <Anchor
-          href={`http://localhost:3000/${shortId}`}
+          target="_blank"
+          href={shareUrl.toString()}
           title="Compartilhar"
         />
-        <Link href={`/${shortId}`}>
+        <Link href={`/${shortId}/order`}>
           <Button title="Fazer pedido" variant="secondary" />
         </Link>
       </form>

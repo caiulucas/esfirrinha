@@ -33,14 +33,15 @@ export default function Home() {
         method: 'POST'
       });
 
-      const shortId = await response.json();
+      const { shortId, userId } = await response.json();
+      sessionStorage.setItem('@esfirrinha:userId', userId);
       router.push(`/${shortId}/share`);
     },
     [router]
   );
 
   return (
-    <main className="flex flex-col items-center justify-between gap-36">
+    <main className="flex flex-col items-center justify-center gap-36">
       <h1 className="text-3xl font-medium">Esfirrinha??</h1>
 
       <form
