@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Group {
@@ -28,6 +29,8 @@ model Order {
   groupId  String?
   products OrderProduct[]
 
+  @@index([user_id])
+  @@index([groupId])
   @@map("orders")
 }
 
@@ -40,6 +43,8 @@ model OrderProduct {
   quantity   Int
   total      Int
 
+  @@index([order_id])
+  @@index([product_id])
   @@map("order_products")
 }
 
@@ -59,6 +64,7 @@ model Product {
   category    Category       @relation(fields: [category_id], references: [id])
   orders      OrderProduct[]
 
+  @@index([category_id])
   @@map("products")
 }
 
