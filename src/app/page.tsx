@@ -9,25 +9,25 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-const validationSchema = z.object({
+const groupSchema = z.object({
   username: z.string().min(1)
 });
 
-type FormData = z.infer<typeof validationSchema>;
+type GroupData = z.infer<typeof groupSchema>;
 
 export default function Home() {
   const {
     control,
     handleSubmit,
     formState: { isLoading }
-  } = useForm<FormData>({
-    resolver: zodResolver(validationSchema)
+  } = useForm<GroupData>({
+    resolver: zodResolver(groupSchema)
   });
 
   const router = useRouter();
 
   const onSubmit = useCallback(
-    async (data: FormData) => {
+    async (data: GroupData) => {
       const response = await fetch('/api/groups', {
         body: JSON.stringify(data),
         method: 'POST'
