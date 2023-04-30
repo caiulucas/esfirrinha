@@ -1,6 +1,13 @@
+'use client';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+import { Anchor } from '@/components/Anchor';
 import { Button } from '@/components/Button';
 
 export default function Share() {
+  const { shortId } = useParams();
+
   return (
     <main className="flex flex-col gap-36">
       <div className="flex flex-col gap-6">
@@ -13,11 +20,16 @@ export default function Share() {
 
       <form className="flex flex-col gap-6 w-full">
         <p className="text-center text-xl font-medium">
-          https://esfinha.com/asfgt
+          {`http://localhost:3000/${shortId}`}
         </p>
 
-        <Button title="Compartilhar" />
-        <Button title="Fazer pedido" variant="secondary" />
+        <Anchor
+          href={`http://localhost:3000/${shortId}`}
+          title="Compartilhar"
+        />
+        <Link href={`/${shortId}`}>
+          <Button title="Fazer pedido" variant="secondary" />
+        </Link>
       </form>
     </main>
   );
