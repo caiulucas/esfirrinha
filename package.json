@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "4.13.0",
-    "@types/node": "18.16.2",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "autoprefixer": "10.4.14",
@@ -26,7 +28,9 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@types/node": "^18.16.3",
     "eslint-config-terralab": "^1.1.0",
-    "prisma": "^4.13.0"
+    "prisma": "^4.13.0",
+    "ts-node": "^10.9.1"
   }
 }
