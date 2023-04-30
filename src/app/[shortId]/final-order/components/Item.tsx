@@ -7,7 +7,6 @@ interface ItemProps {
 
 export function Item({ label, price }: ItemProps) {
   const currency = formatCurrency(price).split('\u00A0');
-  console.log(currency);
 
   return (
     <div className="flex justify-between items-center">
