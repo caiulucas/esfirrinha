@@ -7,11 +7,12 @@ import { Button } from '@/components/Button';
 
 export default function Share() {
   const { shortId } = useParams();
+  const baseUrl = window.location.origin;
 
   const shareUrl = new URL('https://wa.me');
   shareUrl.searchParams.set(
     'text',
-    `Faça um pedido coletivo no Esfirrinha usando o link: http://localhost:3000/${shortId}`
+    `Faça um pedido coletivo no Esfirrinha usando o link: ${baseUrl}/${shortId}`
   );
 
   return (
@@ -26,7 +27,7 @@ export default function Share() {
 
       <form className="flex flex-col gap-6 w-full">
         <p className="text-center text-xl font-medium">
-          {`http://localhost:3000/${shortId}`}
+          {`${baseUrl}/${shortId}`}
         </p>
 
         <Anchor
