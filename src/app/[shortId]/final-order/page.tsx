@@ -1,6 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { use } from 'react';
+import { use, useMemo } from 'react';
 
 import { Separator } from '@/components/Separator';
 import { formatCurrency } from '@/utils/currency';
@@ -49,27 +49,40 @@ export default function FinalOrder() {
     queryClient<Group>('group', () => getGroup(shortId))
   );
 
-  const formattedGroup = {
-    orders: group.orders.map((order) => ({
-      ...order,
-      formattedTotal: formatCurrency(order.total / 100).split('\u00a0')
-    }))
-  };
+  const formattedGroup = useMemo(
+    () => ({
+      orders: group.orders.map((order) => ({
+        ...order,
+        formattedTotal: formatCurrency(order.total / 100).split('\u00a0')
+      }))
+    }),
+    [group]
+  );
 
-  const allProducts = group.orders
-    .flatMap((order) => order.products)
-    .reduce((acc: OrderProduct[], product) => {
-      const index = acc.findIndex((p) => p.product_id === product.product_id);
+  console.log(formattedGroup);
 
-      if (index === -1) {
-        acc.push(product);
-      } else {
-        acc[index].quantity += product.quantity;
-        acc[index].total += product.total;
-      }
+  const allProducts = useMemo(
+    () =>
+      group.orders
+        .flatMap((order) => order.products)
+        .reduce((acc: OrderProduct[], product) => {
+          const index = acc.findIndex(
+            (p) => p.product_id === product.product_id
+          );
 
-      return acc;
-    }, []);
+          if (index === -1) {
+            acc.push({ ...product });
+          } else {
+            acc[index].quantity += product.quantity;
+            acc[index].total += product.total;
+          }
+
+          return acc;
+        }, []),
+    [group.orders]
+  );
+
+  console.log(allProducts);
 
   const total = allProducts.reduce((acc, product) => {
     return acc + product.total;
